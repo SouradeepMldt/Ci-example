@@ -23,20 +23,5 @@ script:
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN
 
-  deploy:
-  provider: firebase
-  skip-cleanup: true
-  firebase-token: $FIREBASE_TOKEN
-  keep-history: true
-  local-dir: ./dist/ci-example
-  on:
 
-notifications:
-  email:
-	recipients:
-      - souradeep.mldt@gmail.com
-      - souradeep.mldt@gmail.com
-    on_success: never 
-    on_failure: always
-    
 
