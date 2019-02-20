@@ -3,11 +3,17 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "/dist/ci-example",
+    "public": "dist/Ci-example",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   },
   "storage": {

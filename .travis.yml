@@ -28,7 +28,7 @@ after_success:
   skip-cleanup: true
   firebase-token: $FIREBASE_TOKEN
   keep-history: true
-  local-dir: ./dist/ci-example
+  local-dir: ./dist/Ci-example
   on:
 
 notifications:
