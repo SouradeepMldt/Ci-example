@@ -15,7 +15,7 @@ cache:
     - node_modules
 
 script:
-  - ng lint
+ # - ng lint
  # - ng test --watch=false
   - ng build --prod
 
