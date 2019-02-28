@@ -1,0 +1,23 @@
+<!--<form>
+  <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input required ngModel name="firstName" #firstname="ngModel" [(ngModel)]="firstName" (change)="log(firstName)" id="firstName" type="text" class="form-control">
+  <div class="alert alert-danger" *ngIf="!firstName.valid">First Name is required</div>
+    </div>
+ <div class="from-group">
+   <label for="comment">Comment</label>
+ <textarea id="comment" cols="30" rows="10" class="form-control"></textarea>
+</div> 
+<button class="btn btn-primary">Submit</button>
+
+</form> -->
+<label>
+  Name:<br>
+  <input type="text" [formControl]="name"><br> <!--After you create the control in the component class, you must associate it with a form control element in the template-->
+</label>
+<p>
+  Value: {{ name.value }} <!--With the value property. which gives you a snapshot of the current value.-->
+</p>
+<p>
+  <button (click)="updateName()">Update Name</button><!--Update the template with a button to simulate a name update. When you click the Update Name button, the value entered in the form control element is reflected as its current value.-->
+</p>
