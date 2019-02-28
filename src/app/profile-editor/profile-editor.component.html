@@ -1,0 +1,64 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">  <!--form group contains a group of controls, the profile form FormGroup is bound to the form element with the FormGroup directive, creating a communication layer between the model and the form containing the inputs-->
+  <label>  <!--The onSubmit() method in the ProfileEditor component captures the current value of profileForm. Use EventEmitter to keep the form encapsulated and to provide the form value outside the component-->
+    First Name:<br>
+    <input type="text" formControlName="firstName" required><br>
+  </label>
+  <label>
+    Last Name:<br>
+    <input type="text"  formControlName="lastName" required><br>
+    Email ID:<br>
+    <input type="text"  formControlName="emailId" required><br>
+    Phone No:<br>
+    <input type="text"  formControlName="phoneNo" required><br>
+  </label>
+ 
+  <div formGroupName="address">
+  <h3>Address</h3><br>
+   <div>
+  <label>
+    Street:<br>
+    <input type="text"  formControlName="street" required><br>
+  </label>
+</div>
+<div>
+  <label>
+    City:<br>
+    <input type="text"  formControlName="city" required><br>
+  </label>
+</div>
+<div>
+  <label>
+    State:<br>
+    <input type="text"  formControlName="state" required><br>
+  </label>
+</div>
+<div>
+  <label>
+    Zip Code:<br>
+    <input type="text"  formControlName="zipCode" required><br>
+  </label>
+</div>
+  </div>  
+  <div>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button><br>
+  </div>
+
+<div formArrayName="aliases">
+  <h3>Aliases</h3> 
+  <button (click)="addAlias()">Add Alias</button>
+
+  <div *ngFor="let address of aliases.controls; let i=index">
+    <!-- The repeated alias template -->
+    <label>
+      Alias:<br>
+      <input type="text" [formControlName]="i"><br>
+    </label>
+  </div>
+</div>
+</form>
+<p>
+  <button (click)="updateProfile()">Update Profile</button>
+</p>
+<p>
+  Form Status: {{ profileForm.status }}
+</p>
