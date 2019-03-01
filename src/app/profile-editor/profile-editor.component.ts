@@ -3,14 +3,15 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';//Import the FormArray class from @angular/forms to use for type information.
-
+//import { MustMatch } from './_helpers/must-match.validator';
 @Component({
   selector: 'app-profile-editor',
   templateUrl: './profile-editor.component.html',
   styleUrls: ['./profile-editor.component.css']
 })
 export class ProfileEditorComponent {
-
+  submitted = false;
+  states=['Andra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Karnataka','Kerala','Madya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Orissa','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telagana','Tripura','Uttaranchal','Uttar Pradesh','West Bengal']
  /* profileForm= new FormGroup({   //Create a property in the component class named profileForm and set the property to a new form group instance. To initialize the form group, provide the constructor with an object of named keys mapped to their control.
     firstName: new FormControl(''),//For the profile form, add two form control instances with the names firstName and lastName.
     lastName: new FormControl(''),
@@ -64,28 +65,54 @@ export class ProfileEditorComponent {
     //
     constructor(private fb: FormBuilder) { }
     profileForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: [''],
-      emailId: ['',Validators.required],
-      phoneNo: ['',Validators.required],
+      firstName: ['', Validators.compose( [Validators.required,Validators.minLength(4)])],
+     // firstName: ['', Validators.required, Validators.minLength(4)],
+      lastName: ['', Validators.compose( [Validators.required,Validators.minLength(4)])],
+      emailId: ['',  Validators.compose( [Validators.required,Validators.email])],
+      phoneNo: ['',Validators.compose( [Validators.required,Validators.minLength(10),Validators.maxLength(13)])],
+     // emailId: ['',Validators.required, Validators.email],
+      //reEmailId:['',Validators.required],
+      //phoneNo: ['',Validators.required,Validators.minLength(10), Validators.maxLength(13)],
+      //rePnoneNo:['',Validators.required],
+      gender:['',Validators.required],
+     
+    
       address: this.fb.group({
-        street: [''],
-        city: [''],
+        street: ['',Validators.required],
+        city: ['',Validators.required],
         state: [''],
-        zipCode: ['']
+        zipCode: ['',Validators.compose( [Validators.required,Validators.minLength(4),Validators.maxLength(4)])]
       }),
+      
+      
       aliases: this.fb.array([    //You can initialize a form array with any number of controls, from zero to many, by defining them in an array. Add an aliases property to the form group instance for profileForm to define the form array.
         this.fb.control('')
-      ])
+      ]),
+     
     });
-    
+   
     addAlias() {
       this.aliases.push(this.fb.control(''));
     }
     get aliases() {
       return this.profileForm.get('aliases') as FormArray;
     }
+   get firstName() { 
+      return this.profileForm.get('firstName'); 
+    }
+    get lastName() { 
+      return this.profileForm.get('lastName'); 
+    }
+    get emailId() { 
+      return this.profileForm.get('emailId'); 
+    }
+    get phoneNo() { 
+      return this.profileForm.get('phoneNo'); 
+    }
     
+    
+   
+
     updateProfile() {
     
       this.profileForm.patchValue({
@@ -98,7 +125,11 @@ export class ProfileEditorComponent {
     }
     onSubmit(){
       console.warn(this.profileForm.value);
-    
+      this.submitted = true;
+      if(this.profileForm.invalid){
+        return;
+      }
+      alert('SUCCESS!! :-)')
     }
     
 }
