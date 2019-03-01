@@ -1,64 +1,192 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">  <!--form group contains a group of controls, the profile form FormGroup is bound to the form element with the FormGroup directive, creating a communication layer between the model and the form containing the inputs-->
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()"><!--form group contains a group of controls, the profile form FormGroup is bound to the form element with the FormGroup directive, creating a communication layer between the model and the form containing the inputs-->
+  
+  
+
   <label>  <!--The onSubmit() method in the ProfileEditor component captures the current value of profileForm. Use EventEmitter to keep the form encapsulated and to provide the form value outside the component-->
-    First Name:<br>
-    <input type="text" formControlName="firstName" required><br>
-  </label>
+  First Name:<br></label>
+
+  <input id="firstName" class="form-control" type="text" formControlName="firstName" required><br>
+  
+  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+    class="alert-danger">
+    <div *ngIf="firstName.errors.required">
+      First Name is required.
+    </div>
+    <div *ngIf="firstName.errors.minlength">
+        Name Must be at least 4 character long.
+          </div>
+        </div>
+   
   <label>
-    Last Name:<br>
-    <input type="text"  formControlName="lastName" required><br>
-    Email ID:<br>
-    <input type="text"  formControlName="emailId" required><br>
-    Phone No:<br>
-    <input type="text"  formControlName="phoneNo" required><br>
-  </label>
- 
+    Last Name:<br></label>
+  <input id="lastName" class="form-control" type="text" formControlName="lastName" required><br>
+  
+  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+    class="alert-danger">
+    <div *ngIf="lastName.errors.required">
+      Last Name is required.
+    </div>
+    <div *ngIf="lastName.errors.minlength">
+        Name Must be at least 4 character long.
+          </div>
+    </div>
+    
+    <label>
+    Email ID:<br></label>
+    <input id="emailId" class="form-control" type="text" formControlName="emailId" required><br>
+  
+    <div *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)"
+      class="alert-danger">
+      <div *ngIf="emailId.errors.required">
+        Last Name is required.
+      </div>
+      <div *ngIf="emailId.errors.email">
+          Please Enter Valid Emailid
+            </div>
+      </div>
+    
+    
+    
+      <label>
+    Phone No:<br> </label>
+    
+    <input id="phoneNo" class="form-control" type="text" formControlName="phoneNo" required><br>
+  
+    <div *ngIf="phoneNo.invalid && (phoneNo.dirty || phoneNo.touched)"
+      class="alert-danger">
+      <div *ngIf="phoneNo.errors.required">
+        Phone Number is required.
+      </div>
+      <div *ngIf="phoneNo.errors.minlength">
+          Phone Number Must be at least 10 character long.
+      </div>
+       
+      <div *ngIf="phoneNo.errors.maxlength">
+          Phone Number Must be at least 13 character long.
+       </div>
+     
+          </div>
+  
+  
+  
+  
+  
+  
+    <div>
+    <label>Gender</label>
+    <label class = "md-check">
+      <input type ="radio" value="male" name ="gender" formControlName="gender">
+      Male
+    </label>
+
+    <label class="md-check">
+      <input type= "radio" value="female" name="gender" formControlName="gender">
+      Female
+    </label>
+  </div> 
+
+
   <div formGroupName="address">
   <h3>Address</h3><br>
-   <div>
+   
+  <!--<div>-->
+    <label>
+    Street:<br></label>
+ <input id="street" class="form-control" type="text" formControlName="street" required><br>
+  
+    <!--<div *ngIf="street.invalid && (street.dirty || street.touched)"
+      class="alert-danger">
+      <div *ngIf="street.errors.required">
+        Street is required.
+      </div>
+    </div>  -->
+
+    <!--</div>-->
+
+<!--<div>-->
   <label>
-    Street:<br>
-    <input type="text"  formControlName="street" required><br>
-  </label>
-</div>
-<div>
-  <label>
-    City:<br>
-    <input type="text"  formControlName="city" required><br>
-  </label>
-</div>
-<div>
+    City:<br></label>
+  
+    
+    <input id="city" class="form-control" type="text" formControlName="city" required><br>
+  
+   <!-- <div *ngIf="city.invalid && (city.dirty || city.touched)"
+      class="alert-danger">
+      <div *ngIf="city.errors.required">
+        City is required.
+      </div>
+    </div>  -->
+<!--</div>-->
+
+<!--<div>
   <label>
     State:<br>
     <input type="text"  formControlName="state" required><br>
   </label>
-</div>
+</div>-->
+
 <div>
+<label>State:</label><br>
+  <label class = "dropdown"></label>
+   <select type ="dropdown"  name ="state" formControlName="state">
+      <option *ngFor="let state of states" [value]="state">{{state}}</option>  
+       </select>
+      </div>
+
+   
+  <!--<div>-->
   <label>
-    Zip Code:<br>
-    <input type="text"  formControlName="zipCode" required><br>
-  </label>
+    Zip Code:<br></label>
+    <input id="zipCode" class="form-control" type="text" formControlName="zipCode" required><br>
+  
+   <!-- <div *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+      class="alert-danger">
+      <div *ngIf="zipCode.errors.required">
+        Zip Code Number is required.
+      </div>
+      <div *ngIf="zipCode.errors.minlength">
+          Zip Code Must be at least 4 character long.
+      </div>
+       
+      <div *ngIf="zipCode.errors.maxlength">
+          Zip Code Must be at least 4 character long.
+       </div>
+     
+          </div>
+  
+</div>-->
 </div>
-  </div>  
-  <div>
-    <button type="submit" [disabled]="!profileForm.valid">Submit</button><br>
-  </div>
+
+
+
 
 <div formArrayName="aliases">
   <h3>Aliases</h3> 
   <button (click)="addAlias()">Add Alias</button>
-
+  
   <div *ngFor="let address of aliases.controls; let i=index">
     <!-- The repeated alias template -->
     <label>
       Alias:<br>
-      <input type="text" [formControlName]="i"><br>
     </label>
+   <input type="text" [formControlName]="i"><br>
+    
   </div>
 </div>
-</form>
+
+<div>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button><br>
+  </div>
+
+
 <p>
   <button (click)="updateProfile()">Update Profile</button>
 </p>
+</form>
+
 <p>
-  Form Status: {{ profileForm.status }}
+  Form Status: {{ profileForm.status | json }}
 </p>
+<p>
+    Form Status: {{ profileForm.value | json }}
+  </p>
